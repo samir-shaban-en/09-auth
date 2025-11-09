@@ -14,7 +14,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { useState } from 'react';
 
-import css from './NotesPage.module.css';
+import css from '@/app/notes/filter/all/NotesPage.module.css';
 type NotesClientProps = {
   initialPage: number;
   initialText: string;
