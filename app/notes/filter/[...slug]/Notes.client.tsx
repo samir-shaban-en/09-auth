@@ -18,7 +18,7 @@ import css from '@/app/notes/filter/all/NotesPage.module.css';
 type NotesClientProps = {
   initialPage: number;
   initialText: string;
-  tag?: string;
+  tag?: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
 };
 function NotesClient({ initialPage, initialText, tag }: NotesClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);

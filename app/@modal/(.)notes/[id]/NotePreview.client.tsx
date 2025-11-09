@@ -35,6 +35,7 @@ const NotePreviewClient = () => {
           </div>
           <p className={css.content}>{note.content}</p>
           <p className={css.date}>{formattedDate}</p>
+          <p className={css.tag}>{note.tag}</p>
         </div>
         <button className={css.backBtn} onClick={close}>
           Close

@@ -17,7 +17,7 @@ interface NotesResponse {
 const fetchNotes = async (
   currentPage: number,
   text: string,
-  tag?: string
+  tag?: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping'
 ): Promise<NotesResponse> => {
   const { data } = await axios.get<NotesResponse>(
     `https://notehub-public.goit.study/api/notes?search=${text}&page=${currentPage}&perPage=12${tag ? `&tag=${tag}` : ''}`,
@@ -58,18 +58,4 @@ const getSingleNote = async (noteId: string): Promise<Note> => {
   return res.data;
 };
 
-const getNotesByCategories = async (tag: string): Promise<Note[]> => {
-  const { data } = await axios.get<NotesResponse>(
-    `https://notehub-public.goit.study/api/notes?tag=${tag}`,
-    options
-  );
-
-  return data.notes;
-};
-export {
-  fetchNotes,
-  createNote,
-  deleteNote,
-  getSingleNote,
-  getNotesByCategories,
-};
+export { fetchNotes, createNote, deleteNote, getSingleNote };

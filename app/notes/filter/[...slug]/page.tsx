@@ -16,7 +16,7 @@ export default async function DocsPage({ params }: Props) {
 
   const currentPage = 1;
   const text = '';
-  const tag = slug[0];
+  const tag = slug[0] as 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
 
   await queryClient.prefetchQuery({
     queryKey: ['notes', currentPage, text, tag],
