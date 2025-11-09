@@ -6,7 +6,11 @@ import {
 } from '@tanstack/react-query';
 import NotesClient from '@/app/notes/filter/all/Notes.client';
 type NoteDetailsProps = {
-  params?: { text?: string; currentPage?: number; tag?: string };
+  params?: {
+    text?: string;
+    currentPage?: number;
+    tag?: 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
+  };
 };
 const App = async ({ params }: NoteDetailsProps) => {
   const currentPage = params?.currentPage ?? 1;
