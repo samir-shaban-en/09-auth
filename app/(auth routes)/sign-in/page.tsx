@@ -1,22 +1,24 @@
 'use client';
-import css from './SignInPage.module.css';
 
+import css from './SignInPage.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { login, LoginRequest } from '@/lib/api/clientApi';
 import { ApiError } from '@/lib/api/api';
+import { useAuthStore } from '@/lib/store/authStore';
+
 const SignIn = () => {
   const router = useRouter();
   const [error, setError] = useState('');
 
+  const setUser = useAuthStore((state) => state.setUser);
+
   const handleSubmit = async (formData: FormData) => {
     try {
-      // Типізуємо дані форми
       const formValues = Object.fromEntries(formData) as LoginRequest;
-      // Виконуємо запит
       const res = await login(formValues);
-      // Виконуємо редірект або відображаємо помилку
       if (res) {
+        setUser(res);
         router.push('/profile');
       } else {
         setError('Invalid email or password');
@@ -29,9 +31,16 @@ const SignIn = () => {
       );
     }
   };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    handleSubmit(formData);
+  };
+
   return (
     <main className={css.mainContent}>
-      <form action={handleSubmit} className={css.form}>
+      <form onSubmit={onSubmit} className={css.form}>
         <h1 className={css.formTitle}>Sign in</h1>
 
         <div className={css.formGroup}>
