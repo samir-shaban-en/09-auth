@@ -1,4 +1,4 @@
-import { getSingleNote } from '@/lib/api';
+import { getSingleNote } from '@/lib/api/clientApi';
 import { Metadata } from 'next';
 import {
   QueryClient,

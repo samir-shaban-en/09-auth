@@ -1,10 +1,12 @@
 'use client';
 import NoteList from '@/components/NoteList/NoteList';
+import Modal from '@/components/Modal/Modal';
+import NoteForm from '@/components/NoteForm/NoteForm';
 import Link from 'next/link';
 import SearchBox from '@/components/SearchBox/SearchBox';
 
 import Pagination from '@/components/Pagination/Pagination';
-import { fetchNotes } from '@/lib/api';
+import { fetchNotes } from '@/lib/api/clientApi';
 
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 
@@ -12,7 +14,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import { useState } from 'react';
 
-import css from '@/app/notes/filter/all/NotesPage.module.css';
+import css from './NotesPage.module.css';
 type NotesClientProps = {
   initialPage: number;
   initialText: string;
@@ -56,6 +58,7 @@ function NotesClient({ initialPage, initialText, tag }: NotesClientProps) {
               setCurrentPage={setCurrentPage}
             />
           )}
+
           <Link
             className={css.button}
             prefetch={false}
