@@ -1,6 +1,6 @@
 import css from './ProfilePage.module.css';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 const Profile = () => {
   return (
     <main className={css.mainContent}>
