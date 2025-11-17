@@ -1,27 +1,4 @@
 import css from './Home.module.css';
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Профіль користувача | NoteHub',
-  description:
-    'Особистий профіль користувача в NoteHub. Перегляд даних, аватару та налаштувань.',
-  keywords: ['профіль', 'користувач', 'notehub', 'замітки', 'акаунт'],
-  openGraph: {
-    title: 'Профіль користувача | NoteHub',
-    description: 'Особистий профіль користувача в NoteHub.',
-    url: 'https://your-domain.com/profile',
-    siteName: 'NoteHub',
-    images: [
-      {
-        url: 'https://your-domain.com/og/profile.png',
-        width: 1200,
-        height: 630,
-        alt: 'Профіль користувача',
-      },
-    ],
-    type: 'website',
-  },
-};
 
 export default function Home() {
   return (

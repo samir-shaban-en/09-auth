@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Create Note | Notes App',
     description: 'Create a new note and save it to your personal notebook.',
-    url: 'https://08-zustand-phi-taupe.vercel.app/notes/action/create',
+    url: 'https://09-auth-fawn-seven.vercel.app/notes/action/create',
     type: 'website',
   },
 };
