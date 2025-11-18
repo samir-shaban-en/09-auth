@@ -18,7 +18,7 @@ const EditProfile = () => {
     getMe().then((user) => {
       setUserName(user.username ?? '');
       setEmail(user.email ?? '');
-      setAvatarUrl(user.photoUrl ?? '/default-avatar.png'); // Логика для аватарки
+      setAvatarUrl(user.avatar ?? '/default-avatar.png'); // Логика для аватарки
     });
   }, []);
 
