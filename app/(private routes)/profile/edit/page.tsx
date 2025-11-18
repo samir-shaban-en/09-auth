@@ -5,14 +5,17 @@ import css from './EditProfilePage.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMe, updateMe } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 
 const EditProfile = () => {
   const router = useRouter();
+  const { setUser } = useAuthStore();
 
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string>('');
   const [saving, setSaving] = useState(false);
+
   useEffect(() => {
     getMe().then((user) => {
       if (!user) {
@@ -23,8 +26,10 @@ const EditProfile = () => {
       setUserName(user.username ?? '');
       setEmail(user.email ?? '');
       setAvatarUrl(user.avatar ?? '/default-avatar.png');
+
+      setUser(user);
     });
-  }, [router]);
+  }, [router, setUser]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
@@ -34,8 +39,12 @@ const EditProfile = () => {
     event.preventDefault();
     setSaving(true);
     try {
-      await updateMe({ username });
-      router.push('/profile'); // Редирект после успешного сохранения
+      const updatedUser = await updateMe({ username });
+
+      // Оновлюємо глобальний стан автентифікації новими даними користувача
+      setUser(updatedUser);
+
+      router.push('/profile'); // Редирект після успішного збереження
     } catch (error) {
       console.error('Ошибка при обновлении username:', error);
     } finally {
@@ -44,7 +53,7 @@ const EditProfile = () => {
   };
 
   const handleCancel = () => {
-    router.push('/profile'); // Редирект при отмене
+    router.push('/profile'); // Редирект при скасуванні
   };
 
   return (

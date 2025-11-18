@@ -1,4 +1,4 @@
-import { getSingleNote } from '@/lib/api/clientApi';
+import { getServerSingleNote } from '@/lib/api/serverApi';
 import { Metadata } from 'next';
 import {
   QueryClient,
@@ -16,7 +16,7 @@ export async function generateMetadata({
   params,
 }: NoteDetailsProps): Promise<Metadata> {
   const { id } = await params;
-  const note = await getSingleNote(id);
+  const note = await getServerSingleNote(id);
 
   const noteTitle = `Нотатка ${note.title}`;
   const noteDescription = `Детальний перегляд нотатки з ідентифікатором ${note.content}.`;
@@ -48,7 +48,7 @@ const NoteDetails = async ({ params }: NoteDetailsProps) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['note', id],
-    queryFn: () => getSingleNote(id),
+    queryFn: () => getServerSingleNote(id),
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

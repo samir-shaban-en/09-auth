@@ -1,4 +1,4 @@
-import { fetchNotes } from '@/lib/api/clientApi';
+import { fetchServerNotes } from '@/lib/api/serverApi';
 import { Metadata } from 'next';
 import {
   QueryClient,
@@ -51,7 +51,7 @@ export default async function DocsPage({ params }: Props) {
 
   await queryClient.prefetchQuery({
     queryKey: ['notes', currentPage, text, tag],
-    queryFn: () => fetchNotes(currentPage, text, tag),
+    queryFn: () => fetchServerNotes(currentPage, text, tag),
   });
 
   return (
