@@ -21,22 +21,28 @@ const NotePreviewClient = () => {
   const router = useRouter();
   const close = () => router.back();
 
-  if (isLoading) return <p>Loading, please wait...</p>;
-  if (error || !note) return <p>Something went wrong.</p>;
-  const formattedDate = note.updatedAt
-    ? `Updated at: ${note.updatedAt}`
-    : `Created at: ${note.createdAt}`;
   return (
     <Modal onClose={close}>
       <div className={css.container}>
-        <div className={css.item}>
-          <div className={css.header}>
-            <h2>{note.title}</h2>
+        {isLoading && <p>Loading, please wait...</p>}
+        {error && <p>Something went wrong.</p>}
+
+        {!isLoading && !error && note && (
+          <div className={css.item}>
+            <div className={css.header}>
+              <h2>{note.title}</h2>
+            </div>
+            <p className={css.content}>{note.content}</p>
+            <p className={css.date}>
+              {note.updatedAt
+                ? `Updated at: ${note.updatedAt}`
+                : `Created at: ${note.createdAt}`}
+            </p>
+            <p className={css.tag}>{note.tag}</p>
           </div>
-          <p className={css.content}>{note.content}</p>
-          <p className={css.date}>{formattedDate}</p>
-          <p className={css.tag}>{note.tag}</p>
-        </div>
+        )}
+
+        {/* 4. Кнопка "Закрыть" всегда доступна, чтобы можно было выйти из модального окна */}
         <button className={css.backBtn} onClick={close}>
           Close
         </button>
