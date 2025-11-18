@@ -13,14 +13,18 @@ const EditProfile = () => {
   const [email, setEmail] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string>('');
   const [saving, setSaving] = useState(false);
-
   useEffect(() => {
     getMe().then((user) => {
+      if (!user) {
+        router.push('/sign-in');
+        return;
+      }
+
       setUserName(user.username ?? '');
       setEmail(user.email ?? '');
-      setAvatarUrl(user.avatar ?? '/default-avatar.png'); // Логика для аватарки
+      setAvatarUrl(user.avatar ?? '/default-avatar.png');
     });
-  }, []);
+  }, [router]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);

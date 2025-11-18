@@ -1,6 +1,7 @@
 import { type Note, type NewNote } from '@/types/note';
 import nextServer from './api';
 import type { User } from '@/types/user';
+import type { ApiError } from './api';
 interface NotesResponse {
   notes: Note[];
   totalPages: number;
@@ -65,11 +66,19 @@ export const checkSession = async () => {
 };
 
 export const getMe = async () => {
-  const { data } = await nextServer.get<User>('/users/me');
-  console.log(data);
-  return data;
-};
+  try {
+    const { data } = await nextServer.get<User>('/users/me');
+    return data;
+  } catch (err) {
+    const error = err as ApiError;
 
+    if (error.response?.status === 401) {
+      return null;
+    }
+
+    throw error;
+  }
+};
 export const logout = async (): Promise<void> => {
   await nextServer.post('/auth/logout');
 };
