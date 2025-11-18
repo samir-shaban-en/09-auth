@@ -48,9 +48,7 @@ export const fetchServerNotes = async (
   const cookieStore = await cookies();
 
   const { data } = await nextServer.get<NotesResponse>(
-    `/notes?search=${encodeURIComponent(text)}&page=${currentPage}&perPage=12${
-      tag ? `&tag=${tag}` : ''
-    }`,
+    `/notes?search=${text}&page=${currentPage}&perPage=12${tag ? `&tag=${tag}` : ''}`,
     {
       headers: {
         Cookie: cookieStore.toString(),
